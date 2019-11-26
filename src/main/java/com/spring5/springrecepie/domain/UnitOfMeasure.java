@@ -4,17 +4,17 @@ import javax.persistence.*;
 
 @Entity
 public class UnitOfMeasure {
-    private String uom;
+    private String description;
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    public String getUom() {
-        return uom;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUom(String uom) {
-        this.uom = uom;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getId() {

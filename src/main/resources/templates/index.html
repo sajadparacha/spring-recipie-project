@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" >
+<html lang="en"  xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Recepies !!</title>
@@ -7,5 +7,27 @@
 <body>
 <h1>My Recepies !!</h1>
 
+<table id="recepies" class="table table-striped" border="2">
+    <thead>
+    <tr>
+        <th style="width: 150px;">ID</th>
+        <th style="width: 200px;">Description</th>
+        <th style="width: 200px;">Category</th>
+        <th style="width: 120px">Notes</th>
+        <th style="width: 120px">Directions</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="recipie: ${recipies}">
+        <td th:text="${recipie.id}" />
+        <td th:text="${recipie.description}" />
+        <td th:text="${recipie.categories.iterator().next().description}" />
+
+        <td th:text="${recipie.notes.recipeNotes}" />
+        <td th:text="${recipie.directions}" />
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
