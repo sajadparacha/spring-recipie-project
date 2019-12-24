@@ -26,22 +26,59 @@
         <th style="width: 200px;">Category</th>
         <th style="width: 120px">Notes</th>
         <th style="width: 120px">Directions</th>
-        <th style="width: 120px">View</th>
-
 
     </tr>
     </thead>
     <tbody>
-    <tr th:each="recipie: ${recipies}">
+    <tr >
         <td th:text="${recipie.id}" />
         <td th:text="${recipie.description}" />
-        <td th:text="${recipie.categories.iterator().next().description}" />
 
+<!--        <td th:text="${recipie.categories.iterator().next().description}" />-->
+<td>
+    <ul>
+        <li th:each="category: ${recipie.categories}" th:text="${category.description}"></li>
+    </ul>
+
+</td>
         <td th:text="${recipie.notes.recipeNotes}" />
         <td th:text="${recipie.directions}" />
-        <td><a href="" th:href="@{'/recipe/' + ${recipie.id} + '/show'}">View</a> </td>
     </tr>
     </tbody>
+
 </table>
+
+<h1>
+    Ingrediants
+</h1>
+<p>
+    <ul>
+<!--The below 3 will apear if we open this page in browser, however when the same page is run on server the below will be removed-->
+    <li th:remove="all">Ingrediant 1</li>
+    <li th:remove="all">Ingrediant 2</li>
+    <li th:remove="all">Ingrediant 3</li>
+
+    <li th:each="ingredient: ${recipie.ingredients}" th:text="${ ingredient.amount+' : '+ingredient.description}"></li>
+    </ul>
+</p>
+
+<h1>
+    Directions
+</h1>
+<p>
+    <!--        <strong th:text="${recipie.ingredients.iterator().next()}"></strong>-->
+    <strong th:text="${recipie.directions}"></strong>
+</p>
+
+
+<h1>
+    Notes
+</h1>
+<p>
+    <!--        <strong th:text="${recipie.ingredients.iterator().next()}"></strong>-->
+    <strong th:text="${recipie.notes.getRecipeNotes()}"></strong>
+
+
+</p>
 </body>
 </html>

@@ -4,12 +4,13 @@ import com.spring5.springrecepie.domain.*;
 import com.spring5.springrecepie.repositories.CategoryRepository;
 import com.spring5.springrecepie.repositories.RecipeRepository;
 import com.spring5.springrecepie.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-
+@Slf4j
 @Component
 public class DataLoader implements CommandLineRunner {
     private RecipeRepository recipeRepository;
@@ -24,6 +25,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        log.debug("DataLoader:  Start preparing recipes");
         /*
         *
         * For the chicken:
@@ -55,6 +57,7 @@ For frying:
     }
 
     private void createPerfectGuacamoleRecipe() {
+        log.debug("DateLoader :  Preparing perfectGuacamoleRecipe");
         Recipe perfectGuacamoleRecipe= new Recipe();
         perfectGuacamoleRecipe.setDescription("Perfect Guacamole");
         perfectGuacamoleRecipe.setDifficulty(Difficulty.HARD);
@@ -147,34 +150,36 @@ For frying:
         avocados.setDescription("avocados");
         avocados.setRecipe(perfectGuacamoleRecipe);
         avocados.setUnitOfMeasure(cupUnitOfMeasure.get());
-        perfectGuacamoleRecipe.getIngredients().add(avocados);
-
+       // perfectGuacamoleRecipe.getIngredients().add(avocados);
+        perfectGuacamoleRecipe.addIngrediant(avocados);
         Ingredients kosherSalt = new Ingredients();
         kosherSalt.setAmount(new BigDecimal(1.5));
         kosherSalt.setDescription("Kosher salt");
         kosherSalt.setRecipe(perfectGuacamoleRecipe);
         kosherSalt.setUnitOfMeasure(teaSpoonUnitOfMeasure.get());
-        perfectGuacamoleRecipe.getIngredients().add(kosherSalt);
-
+        //perfectGuacamoleRecipe.getIngredients().add(kosherSalt);
+        perfectGuacamoleRecipe.addIngrediant(kosherSalt);
 
         Ingredients lemonJuice = new Ingredients();
         lemonJuice.setAmount(new BigDecimal(1));
         lemonJuice.setDescription("garlic Powder");
         lemonJuice.setRecipe(perfectGuacamoleRecipe);
         lemonJuice.setUnitOfMeasure(teaSpoonUnitOfMeasure.get());
-        perfectGuacamoleRecipe.getIngredients().add(lemonJuice);
+        perfectGuacamoleRecipe.addIngrediant(lemonJuice);
 
         Notes notes= new Notes();
         notes.setRecipe(perfectGuacamoleRecipe);
         notes.setRecipeNotes(" Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon. (See How to Cut and Peel an Avocado.) Place in a bowl."
         );
         perfectGuacamoleRecipe.setNotes(notes);
-        perfectGuacamoleRecipe.getCategories().add(categoryRepository.findByDescription("American").get());
-        perfectGuacamoleRecipe.getCategories().add(categoryRepository.findByDescription("Italian").get());
+        perfectGuacamoleRecipe.addCategory(categoryRepository.findByDescription("American").get());
+        perfectGuacamoleRecipe.addCategory(categoryRepository.findByDescription("Italian").get());
+       log.debug("DateLoader :  Saving perfectGuacamoleRecipe");
         recipeRepository.save(perfectGuacamoleRecipe);
     }
 
     private void createSpicyFriedChickenRecipe() {
+        log.debug("DateLoader :  Preparing SpicyFriedChickenRecipe");
         Recipe spicyFriedChickenRecipe= new Recipe();
         spicyFriedChickenRecipe.setDescription("Spicy Fried Chicken");
         spicyFriedChickenRecipe.setDifficulty(Difficulty.MODERATE);
@@ -202,14 +207,14 @@ For frying:
         butterMilk.setDescription("butterMilk");
         butterMilk.setRecipe(spicyFriedChickenRecipe);
         butterMilk.setUnitOfMeasure(cupUnitOfMeasure.get());
-        spicyFriedChickenRecipe.getIngredients().add(butterMilk);
+        spicyFriedChickenRecipe.addIngrediant(butterMilk);
 
         Ingredients hotSauce = new Ingredients();
         hotSauce.setAmount(new BigDecimal(2));
         hotSauce.setDescription("hot Sauce");
         hotSauce.setRecipe(spicyFriedChickenRecipe);
         hotSauce.setUnitOfMeasure(cupUnitOfMeasure.get());
-        spicyFriedChickenRecipe.getIngredients().add(hotSauce);
+        spicyFriedChickenRecipe.addIngrediant(hotSauce);
 
 
         Ingredients garlicPowder = new Ingredients();
@@ -217,7 +222,7 @@ For frying:
         garlicPowder.setDescription("garlic Powder");
         garlicPowder.setRecipe(spicyFriedChickenRecipe);
         garlicPowder.setUnitOfMeasure(teaSpoonUnitOfMeasure.get());
-        spicyFriedChickenRecipe.getIngredients().add(garlicPowder);
+        spicyFriedChickenRecipe.addIngrediant(garlicPowder);
 
         Notes notes= new Notes();
         notes.setRecipe(spicyFriedChickenRecipe);
@@ -226,7 +231,8 @@ For frying:
                 "The possibilities are endless! I think extra hot sauce for the true heat seekers is always a must."
         );
         spicyFriedChickenRecipe.setNotes(notes);
-        spicyFriedChickenRecipe.getCategories().add(categoryRepository.findByDescription("Italian").get());
+        spicyFriedChickenRecipe.addCategory(categoryRepository.findByDescription("Italian").get());
+        log.debug("DateLoader :  Saving SpicyFriedChickenRecipe");
         recipeRepository.save(spicyFriedChickenRecipe);
     }
 }

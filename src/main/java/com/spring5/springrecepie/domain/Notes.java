@@ -1,7 +1,17 @@
 package com.spring5.springrecepie.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Data
+/**
+ * Commenting below annotation will cause
+ * java.lang.StackOverflowError: null
+ * 	at com.spring5.springrecepie.domain.Notes.hashCode(Notes.java:7) ~[classes/:na]
+ * 	at com.spring5.springrecepie.domain.Recipe.hashCode(Recipe.java:9) ~[classes/:na]
+ */
+@EqualsAndHashCode(exclude = "recipe")
 @Entity
 public class Notes {
     @Id
@@ -11,27 +21,9 @@ public class Notes {
     private Recipe recipe;
     private String recipeNotes;
 
-    public Long getId() {
-        return id;
+    public Notes() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getRecipeNotes() {
-        return recipeNotes;
-    }
 
-    public void setRecipeNotes(String recipeNotes) {
-        this.recipeNotes = recipeNotes;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
 }

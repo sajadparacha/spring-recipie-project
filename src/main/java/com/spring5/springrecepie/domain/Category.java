@@ -1,7 +1,16 @@
 package com.spring5.springrecepie.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Set;
+@Data
+/**
+ * Having bydirectional relationshps in a n entity and using lambok with it creates problem for hashcoding so we will have to exclude the bidirectional memebers of this class
+ * while using lombokl
+ * PS: A circular refrence is created
+ */
+@EqualsAndHashCode(exclude = "recipes")
 @Entity
 public class Category {
     @javax.persistence.Id
@@ -9,30 +18,12 @@ public class Category {
     private Long Id;
     private String description;
     //**categories here is the name of the joinTable in the Recipe Class
-    @ManyToMany(mappedBy = "categories")
+
+    @ManyToMany(mappedBy = "categories",fetch = FetchType.EAGER)
     private Set<Recipe> recipes;
 
-    public Long getId() {
-        return Id;
-    }
 
-    public void setId(Long id) {
-        Id = id;
-    }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
-    public Set<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(Set<Recipe> recipes) {
-        this.recipes = recipes;
-    }
 }
