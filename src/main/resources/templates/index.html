@@ -17,7 +17,12 @@
 </head>
 <body>
 <h1>My Recepies !!</h1>
-
+<p>
+    <a href="/recipe/new" >New</a>
+</p>
+<p>
+    Total Number Of Recipies : <strong th:text="${recipies.size()}"></strong>
+</p>
 <table id="recepies" class="table table-striped" border="2">
     <thead class="thead-dark">
     <tr>
@@ -27,7 +32,9 @@
         <th style="width: 120px">Notes</th>
         <th style="width: 120px">Directions</th>
         <th style="width: 120px">View</th>
-
+        <th style="width: 120px">View Ingredients</th>
+        <th style="width: 120px">Update</th>
+        <th style="width: 120px">Delete</th>
 
     </tr>
     </thead>
@@ -35,11 +42,21 @@
     <tr th:each="recipie: ${recipies}">
         <td th:text="${recipie.id}" />
         <td th:text="${recipie.description}" />
-        <td th:text="${recipie.categories.iterator().next().description}" />
+        <td>
+            <ul>
+                <li th:each="category: ${recipie.categories}" th:text="${category.description}"></li>
+            </ul>
+        </td>
 
         <td th:text="${recipie.notes.recipeNotes}" />
         <td th:text="${recipie.directions}" />
         <td><a href="" th:href="@{'/recipe/' + ${recipie.id} + '/show'}">View</a> </td>
+
+        <td><a href="" th:href="@{'/recipe/' + ${recipie.id} + '/ingredients'}">View Ingredientes</a> </td>
+        <td><a href="" th:href="@{'/recipe/' + ${recipie.id} + '/update'}">Update</a> </td>
+        <td><a href="" th:href="@{'/recipe/' + ${recipie.id} + '/delete'}">Delete</a> </td>
+
+
     </tr>
     </tbody>
 </table>

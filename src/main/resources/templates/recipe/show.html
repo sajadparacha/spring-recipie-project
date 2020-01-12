@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Recepies !!</title>
-    <!--          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"-->
     <link rel="stylesheet"
 
           th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"
@@ -16,8 +15,12 @@
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<h1>My Recepies !!</h1>
-
+<p>
+    <a href="/index">View All Recipies</a>
+</p>
+<p>
+    <a th:href="${'/recipe/'+recipie.id+'/update'}">Edit</a>
+</p>
 <table id="recepies" class="table table-striped" border="2">
     <thead class="thead-dark">
     <tr>
@@ -41,7 +44,7 @@
     </ul>
 
 </td>
-        <td th:text="${recipie.notes.recipeNotes}" />
+
         <td th:text="${recipie.directions}" />
     </tr>
     </tbody>
@@ -75,8 +78,8 @@
     Notes
 </h1>
 <p>
-    <!--        <strong th:text="${recipie.ingredients.iterator().next()}"></strong>-->
-    <strong th:text="${recipie.notes.getRecipeNotes()}"></strong>
+<!--        If the notes is not null then showrecipe notes-->
+        <strong th:text="${recipie.notes} ? ${recipie.notes.recipeNotes}:'No Notes For This Recipe'"></strong>
 
 
 </p>

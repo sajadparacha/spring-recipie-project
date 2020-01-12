@@ -1,6 +1,7 @@
 package com.spring5.springrecepie.services;
 
 import com.spring5.springrecepie.domain.Recipe;
+import com.spring5.springrecepie.repositories.IngredientRepository;
 import com.spring5.springrecepie.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,11 +23,13 @@ class RecipeServiceImplTest {
      */
     @Mock
     RecipeRepository recipeRepository;
+    @Mock
+    IngredientRepository ingredientRepository;
     @BeforeEach
     void setUp() {
 
         MockitoAnnotations.initMocks(this);
-        recipeService= new RecipeServiceImpl(recipeRepository);
+        recipeService= new RecipeServiceImpl(recipeRepository,ingredientRepository);
     }
 
     @Test
@@ -57,5 +60,25 @@ class RecipeServiceImplTest {
         verify(recipeRepository,never()).findAll();
         //**check that the found recipe is what we were expecting
         assertEquals(1L,recipeReturned.getId());
+    }
+
+    @Test
+    void testDeleteRecipeById(){
+        //Given
+        Long idToBeDeleted=1L;
+        //When , since the delete method returns void we cant have when here but
+        // verify that the delete method was actially called
+        recipeService.deleteRecipeById(idToBeDeleted);
+        //when(recipeService.deleteRecipeById(recipeId)).thenReturn(idToBeDeleted);
+
+        //Then
+        verify(recipeRepository,times(1)).deleteById(any());
+    }
+    @Test
+    void testDeleteIngredientByID (){
+        Long idToBeDeleted=1L;
+
+        recipeService.deleteIngredientByID(idToBeDeleted);
+        verify(ingredientRepository,times(1)).deleteById(any());
     }
 }

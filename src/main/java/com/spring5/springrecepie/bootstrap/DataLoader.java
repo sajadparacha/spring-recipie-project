@@ -149,14 +149,14 @@ For frying:
         avocados.setAmount(new BigDecimal(2));
         avocados.setDescription("avocados");
         avocados.setRecipe(perfectGuacamoleRecipe);
-        avocados.setUnitOfMeasure(cupUnitOfMeasure.get());
+        avocados.setUom(cupUnitOfMeasure.get());
        // perfectGuacamoleRecipe.getIngredients().add(avocados);
         perfectGuacamoleRecipe.addIngrediant(avocados);
         Ingredients kosherSalt = new Ingredients();
         kosherSalt.setAmount(new BigDecimal(1.5));
         kosherSalt.setDescription("Kosher salt");
         kosherSalt.setRecipe(perfectGuacamoleRecipe);
-        kosherSalt.setUnitOfMeasure(teaSpoonUnitOfMeasure.get());
+        kosherSalt.setUom(teaSpoonUnitOfMeasure.get());
         //perfectGuacamoleRecipe.getIngredients().add(kosherSalt);
         perfectGuacamoleRecipe.addIngrediant(kosherSalt);
 
@@ -164,7 +164,7 @@ For frying:
         lemonJuice.setAmount(new BigDecimal(1));
         lemonJuice.setDescription("garlic Powder");
         lemonJuice.setRecipe(perfectGuacamoleRecipe);
-        lemonJuice.setUnitOfMeasure(teaSpoonUnitOfMeasure.get());
+        lemonJuice.setUom(teaSpoonUnitOfMeasure.get());
         perfectGuacamoleRecipe.addIngrediant(lemonJuice);
 
         Notes notes= new Notes();
@@ -206,14 +206,14 @@ For frying:
         butterMilk.setAmount(new BigDecimal(2));
         butterMilk.setDescription("butterMilk");
         butterMilk.setRecipe(spicyFriedChickenRecipe);
-        butterMilk.setUnitOfMeasure(cupUnitOfMeasure.get());
+        butterMilk.setUom(cupUnitOfMeasure.get());
         spicyFriedChickenRecipe.addIngrediant(butterMilk);
 
         Ingredients hotSauce = new Ingredients();
         hotSauce.setAmount(new BigDecimal(2));
         hotSauce.setDescription("hot Sauce");
         hotSauce.setRecipe(spicyFriedChickenRecipe);
-        hotSauce.setUnitOfMeasure(cupUnitOfMeasure.get());
+        hotSauce.setUom(cupUnitOfMeasure.get());
         spicyFriedChickenRecipe.addIngrediant(hotSauce);
 
 
@@ -221,7 +221,7 @@ For frying:
         garlicPowder.setAmount(new BigDecimal(2));
         garlicPowder.setDescription("garlic Powder");
         garlicPowder.setRecipe(spicyFriedChickenRecipe);
-        garlicPowder.setUnitOfMeasure(teaSpoonUnitOfMeasure.get());
+        garlicPowder.setUom(teaSpoonUnitOfMeasure.get());
         spicyFriedChickenRecipe.addIngrediant(garlicPowder);
 
         Notes notes= new Notes();

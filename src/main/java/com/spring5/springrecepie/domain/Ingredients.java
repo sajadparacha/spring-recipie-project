@@ -16,7 +16,9 @@ public class Ingredients {
     @ManyToOne
     private Recipe recipe;
     @OneToOne(fetch = FetchType.EAGER)
-    private UnitOfMeasure unitOfMeasure;
+    private UnitOfMeasure uom;
 
-
+    public Long getRecipeId(){
+        return this.recipe.getId();
+    }
 }
