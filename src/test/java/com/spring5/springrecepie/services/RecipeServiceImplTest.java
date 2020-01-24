@@ -1,6 +1,7 @@
 package com.spring5.springrecepie.services;
 
 import com.spring5.springrecepie.domain.Recipe;
+import com.spring5.springrecepie.exceptions.NotFoundException;
 import com.spring5.springrecepie.repositories.IngredientRepository;
 import com.spring5.springrecepie.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,6 +62,8 @@ class RecipeServiceImplTest {
         //**check that the found recipe is what we were expecting
         assertEquals(1L,recipeReturned.getId());
     }
+
+
 
     @Test
     void testDeleteRecipeById(){

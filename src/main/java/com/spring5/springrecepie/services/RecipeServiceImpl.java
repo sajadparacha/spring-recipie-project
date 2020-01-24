@@ -2,6 +2,7 @@ package com.spring5.springrecepie.services;
 
 import com.spring5.springrecepie.domain.Ingredients;
 import com.spring5.springrecepie.domain.Recipe;
+import com.spring5.springrecepie.exceptions.NotFoundException;
 import com.spring5.springrecepie.repositories.IngredientRepository;
 import com.spring5.springrecepie.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,8 @@ public class RecipeServiceImpl implements RecipeService {
         Optional<Recipe> recipeOptional=recipeRepository.findById(aLong);
         //**Defensive coding , ceck if no recipe found throw exception
         if(!recipeOptional.isPresent()){
-            throw new RuntimeException("Recipe not found for Id = "+aLong);
+
+            throw new NotFoundException("Recipe not found for Id = "+aLong);
         }
         return recipeOptional.get();
     }

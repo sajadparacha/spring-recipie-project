@@ -1,6 +1,7 @@
 package com.spring5.springrecepie.controllers;
 
 import com.spring5.springrecepie.domain.Recipe;
+import com.spring5.springrecepie.exceptions.NotFoundException;
 import com.spring5.springrecepie.repositories.CategoryRepository;
 import com.spring5.springrecepie.repositories.RecipeRepository;
 import com.spring5.springrecepie.repositories.UnitOfMeasureRepository;
@@ -88,22 +89,49 @@ class RecipeControllerTest {
 //        verify(recipeService,times(1)).getRecipeById(anyLong());
 //
 //    }
+@Test
+void testGetRecipe() throws Exception {
+    //Given
+    Recipe recipe=new Recipe();
+    recipe.setId(1L);
+    MockMvc mockMvc= MockMvcBuilders.standaloneSetup(recipeController).build();
+    //When
+    when(recipeService.getRecipeById(anyLong())).thenReturn(recipe);
+    mockMvc.perform(
+            get("/recipe/1/show"))
+            //Then
+            .andExpect(status().isOk())
+            .andExpect(view().name("recipe/show"))
+            .andExpect(model().attributeExists("recipie"));
+}
     @Test
-    void testGetRecipe() throws Exception {
+    void testGetRecipeNotFound() throws Exception {
         //Given
-        Recipe recipe=new Recipe();
-        recipe.setId(1L);
         MockMvc mockMvc= MockMvcBuilders.standaloneSetup(recipeController).build();
-        //When
-        when(recipeService.getRecipeById(anyLong())).thenReturn(recipe);
-        mockMvc.perform(
-                get("/recipe/1/show"))
-        //Then
-                .andExpect(status().isOk())
-                .andExpect(view().name("recipe/show"))
-                .andExpect(model().attributeExists("recipie"));
-    }
+        when(recipeService.getRecipeById(anyLong())).thenThrow(NotFoundException .class);
 
+        //When
+          mockMvc.perform(
+                get("/recipe/1/show"))
+                //Then
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("404error"));
+
+    }
+    @Test
+    void testNumberFormatException() throws Exception {
+        //Given
+        MockMvc mockMvc= MockMvcBuilders.standaloneSetup(recipeController).build();
+       // when(recipeService.getRecipeById(any())).thenThrow(NumberFormatException .class);
+
+        //When
+        mockMvc.perform(
+                get("/recipe/1gdgfd/show"))
+                //Then
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("error"));
+
+    }
     @Test
     void createRecipeTest() throws Exception {
         //Given
@@ -159,6 +187,8 @@ class RecipeControllerTest {
         verify(recipeService,times(1)).deleteRecipeById(any());
 
     }
+
+
     @Test
     void testRecipieList() throws Exception {
         //given
