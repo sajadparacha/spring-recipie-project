@@ -1,8 +1,13 @@
 package com.spring5.springrecepie.domain;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 @Data
@@ -12,13 +17,23 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+    @Length(min = 3,max = 255)
     private String description;
+    @Min(1)
+    @Max(1000)
     private Integer prepTime;
+    @Min(1)
+    @Max(1000)
     private Integer cookTime;
+    @Min(1)
+    @Max(1000)
     private Integer serving;
     private String source;
+    @URL
     private String url;
+
     @Lob
+    @NotBlank
     private String directions;
 
     @Lob

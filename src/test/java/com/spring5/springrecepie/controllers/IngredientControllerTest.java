@@ -48,7 +48,10 @@ class IngredientControllerTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
         ingredientController = new IngredientController( recipeService,ingredientService,uomService );
-        mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(ingredientController)
+                //**Test will fail without addind the below Adice for this controller
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
     }
     @Test
     void testShowIngredient() throws Exception {

@@ -62,15 +62,11 @@ public class IngredientController {
         recipeService.deleteIngredientByID(new Long(ingredientId));
         return "redirect:/recipe/"+recipeId+"/ingredients";
     }
-
     @RequestMapping("recipe/{recipeId}/ingredient/{ingredientId}/show")
-    public String showIngredient(@PathVariable String recipeId,@PathVariable String ingredientId, Model model){
-        log.debug("updateRecipe called");
-        //**Here we need ot implement another service method to first find the
-        // recipe and then the ingridient by it's id
-        Ingredients ingredients=ingredientService.findByRecipeIdAndIngredientId(new Long(recipeId),new Long(ingredientId));
-
-        model.addAttribute("ingredient",ingredients);
+    public String showIngredient(@PathVariable String recipeId,@PathVariable String ingredientId){
+        ingredientService.findByRecipeIdAndIngredientId(new Long(recipeId),new Long(ingredientId));
         return "recipe/ingredient/show";
     }
+
+
 }

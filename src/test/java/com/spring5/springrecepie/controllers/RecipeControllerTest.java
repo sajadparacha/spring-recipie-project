@@ -121,7 +121,10 @@ void testGetRecipe() throws Exception {
     @Test
     void testNumberFormatException() throws Exception {
         //Given
-        MockMvc mockMvc= MockMvcBuilders.standaloneSetup(recipeController).build();
+        MockMvc mockMvc= MockMvcBuilders.standaloneSetup(recipeController)
+                //**Test will fail without addind the below Adice for this controller
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
        // when(recipeService.getRecipeById(any())).thenThrow(NumberFormatException .class);
 
         //When
@@ -129,7 +132,7 @@ void testGetRecipe() throws Exception {
                 get("/recipe/1gdgfd/show"))
                 //Then
                 .andExpect(status().isBadRequest())
-                .andExpect(view().name("error"));
+                .andExpect(view().name("badRequestError"));
 
     }
     @Test
@@ -147,11 +150,41 @@ void testGetRecipe() throws Exception {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id","10")
                 .param("description","Recipe To Be Saved")
+                //**If we keep below as null the validation at controller will
+                //**kick in and will fail this test case , try commenting below line and than run this test
+                .param("directions","directions")
+
 
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/"+recipeToBeSaved.getId()+"/show"))
                ;
+
+    }
+    @Test
+    void createRecipeValidationFailTest() throws Exception {
+        //Given
+        Recipe recipeToBeSaved= new Recipe();
+        recipeToBeSaved.setId(10L);
+        recipeToBeSaved.setDescription("Recipe To Be Saved");
+        //When
+        when(recipeService.saveRecipe(any())).thenReturn(recipeToBeSaved);
+        //Then
+        MockMvc mockMvc=MockMvcBuilders.standaloneSetup(recipeController).build();
+        mockMvc.perform(
+                post("/recipe")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("id","10")
+                        .param("description","RE")
+                        //**If we keep below as null the validation at controller will
+                        //**kick in and will fail this test case , try commenting below line and than run this test
+                        //.param("directions","directions")
+
+
+        )
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/recipeform"))
+        ;
 
     }
     @Test
