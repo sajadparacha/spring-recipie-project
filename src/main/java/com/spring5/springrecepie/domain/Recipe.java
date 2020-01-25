@@ -18,6 +18,7 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     @Length(min = 3,max = 255)
+    @NotBlank
     private String description;
     @Min(1)
     @Max(1000)
