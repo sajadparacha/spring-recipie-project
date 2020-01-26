@@ -9,13 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static com.sun.javaws.JnlpxArgs.verify;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -44,7 +43,7 @@ class IngredientServiceImplTest {
         Long ingredientId=1L;
         Recipe recipe= new Recipe();
         recipe.setId(recipeId);
-        Set<Ingredients> ingredientsSet=new HashSet<Ingredients>();
+        Set<Ingredients> ingredientsSet=new HashSet<>();
         Ingredients ingredients=new Ingredients();
         ingredients.setId(ingredientId);
         ingredientsSet.add(ingredients);
