@@ -1,1 +1,1 @@
-[![CircleCI Status](https://circleci.com/gh/sajadparacha/spring-recipie-project.svg?style=svg)](https://circleci.com/gh/sajadparacha/spring-recipie-project)
+[![CircleCI](https://circleci.com/gh/sajadparacha/spring-recipie-project.svg?style=svg)](https://circleci.com/gh/sajadparacha/spring-recipie-project)
