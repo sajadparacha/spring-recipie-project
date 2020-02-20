@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>Recipe Form</title>
-
+    <!--          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"-->
     <link rel="stylesheet"
 
           th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"
@@ -12,18 +13,15 @@
     <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-                   integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-                   crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<p>
-    <a href="/index">View All Recipies</a>
-</p>
-<!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
+<!--/*@thymesVar id="recipe" type="com.spring5.springrecepie.domain.Recipe"*/-->
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form  th:object="${recipe}" th:action="@{/recipe/}"  method="post">
+            <form  th:object="${recipe}" th:action="@{/recipe/}" method="post">
                 <input type="hidden" th:field="*{id}"/>
                 <div class="pannel-group">
                     <div class="panel panel-primary">
@@ -35,8 +33,6 @@
                                 <div class="col-md-3 form-group">
                                     <label>Recipe Description:</label>
                                     <input type="text" class="form-control" th:field="*{description}"/>
-                                    <!--Sajjad : show errors in page-->
-                                    <strong th:text="${#fields.errors('description')}"></strong>
                                 </div>
                             </div>
                             <div class="row">
@@ -84,7 +80,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3 form-group">
-                                    <label>Servings:</label>
+                                    <label>serving:</label>
                                     <input type="text" class="form-control" th:field="*{serving}"/>
                                 </div>
                                 <div class="col-md-3 form-group">
@@ -98,7 +94,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
@@ -106,26 +101,26 @@
                                     <h1 class="panel-title">Ingredients</h1>
                                 </div>
                                 <div class="col-md-1">
-                                    <a class="btn btn-default" href="#" role="button">Edit</a>
+                                    <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
                                 </div>
                             </div>
                         </div>
-<!--                        -->
-<!--                        <div class="panel-body">-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-md-12">-->
-<!--                                    <ul>-->
-<!--                                        <li th:remove="all">1 Cup of milk</li>-->
-<!--                                        <li th:remove="all">1 Teaspoon of chocolate</li>-->
-<!--                                        <li th:each="ingredient : ${recipe.ingredients}"-->
-<!--                                            th:text="${(ingredient.getAmount() +-->
-<!--                                        ' ' + ingredient.uom.getDescription() +-->
-<!--                                        ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar-->
-<!--                                        </li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul th:if="${not #lists.isEmpty(recipe.ingredients)}">
+                                        <li th:remove="all">1 Cup of milk</li>
+                                        <li th:remove="all">1 Teaspoon of chocolate</li>
+                                        <li th:remove="all">asdf</li>
+                                        <li th:each="ingredient : ${recipe.ingredients}"
+                                            th:text="${(ingredient.getAmount() +
+                                        ' ' + ingredient.uom.getDescription() +
+                                        ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel panel-primary">
                         <div class="panel-heading">
@@ -158,3 +153,5 @@
 </div>
 </body>
 </html>
+
+
