@@ -46,3 +46,12 @@ jobs:
       - run:
           name: Send to CodeCov
           command: bash <(curl -s https://codecov.io/bash)
+
+      version: 2.1
+      orbs:
+        codecov: codecov/codecov@1.0.2
+      jobs:
+        build:
+          steps:
+            - codecov/upload:
+                file: {{ coverage_report_filepath }}
