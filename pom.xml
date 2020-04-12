@@ -65,7 +65,11 @@
             <artifactId>bootstrap</artifactId>
             <version>4.4.1</version>
         </dependency>
-
+        <!--MySQL Driver-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

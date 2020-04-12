@@ -6,11 +6,15 @@ import com.spring5.springrecepie.repositories.RecipeRepository;
 import com.spring5.springrecepie.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 @Slf4j
+//**This class will only be called when the profile is default and
+// Because of "spring.datasource.platform=h2" in application-default.properties will connect with h2 Database
+@Profile("default")
 @Component
 public class DataLoader implements CommandLineRunner {
     private RecipeRepository recipeRepository;
