@@ -11,19 +11,19 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
+@ExtendWith(SpringExtension.class)//Load Spring Context
+@DataJpaTest//Load JPA context
 class UnitOfMeasureRepositoryTestIT {
-    @Autowired
+    @Autowired//Autowie the Repositoyr
     UnitOfMeasureRepository unitOfMeasureRepository;
     @BeforeEach
     void setUp() {
     }
 
-    @Test
+    @Test//Test the actual function
     void findByDescription() {
         String description="Cup";
        Optional<UnitOfMeasure> unitOfMeasure= unitOfMeasureRepository.findByDescription(description);
-       assertEquals("Cupt",unitOfMeasure.get().getDescription());
+       assertEquals("Cup",unitOfMeasure.get().getDescription());
     }
 }
